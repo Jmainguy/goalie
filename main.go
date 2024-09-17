@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -18,7 +18,7 @@ func getRoster(teamLink string) (players []string) {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var teams Teams
 	err = json.Unmarshal(body, &teams)
 	if err != nil {
@@ -39,7 +39,7 @@ func getPlayerStats(URI string) (stats PlayerStats) {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	err = json.Unmarshal(body, &stats)
 	if err != nil {
 		fmt.Println("Can not unmarshal Stat JSON")
@@ -56,7 +56,7 @@ func getPlayer(playerLink string) (customPlayer Player) {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var people People
 	err = json.Unmarshal(body, &people)
 	if err != nil {
@@ -84,7 +84,7 @@ func getCaptain(playerLink string) {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var people People
 	err = json.Unmarshal(body, &people)
 	if err != nil {
@@ -110,7 +110,7 @@ func getTeams(teamName string) (teamLinks []string) {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var teams Teams
 	err = json.Unmarshal(body, &teams)
 	if err != nil {
